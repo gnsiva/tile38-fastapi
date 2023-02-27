@@ -1,0 +1,5 @@
+./data
+.env
+.idea
+./presentation/.ipynb_checkpoints
+./presentation/tmp
