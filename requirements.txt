@@ -1,5 +1,6 @@
 redis[hiredis]==4.*
 fastapi==0.92.*
+uvicorn[standard]==0.20.*
 
 # for test data generation
 shapely==2.0.*
