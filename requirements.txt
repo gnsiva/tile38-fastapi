@@ -1,0 +1,10 @@
+redis[hiredis]==4.*
+fastapi==0.92.*
+
+# for test data generation
+shapely==2.0.*
+
+# for presentation
+jupyter
+jupyter_contrib_nbextensions==0.7.*
+jupyter_nbextensions_configurator==0.6.*
