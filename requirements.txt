@@ -5,6 +5,10 @@ uvicorn[standard]==0.20.*
 # for test data generation
 shapely==2.0.*
 
+# for database benchmarking
+geoalchemy2==0.13.1
+psycopg2==2.9.5
+
 # for presentation
 jupyter
 jupyter_contrib_nbextensions==0.7.*
