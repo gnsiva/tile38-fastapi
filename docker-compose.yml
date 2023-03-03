@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  tile38:
+    hostname: tile38
+    image: tile38/tile38:1.30.2
+    ports:
+      - "9851:9851"
+
+  postgis:
+    image: kartoza/postgis
+    init: true
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      # not secure, demo use only
+      - "POSTGRES_USER=the_user"
+      - "POSTGRES_PASS=the_password"
+      - "POSTGRES_DBNAME=parking"
+    volumes:
+      - "postgis:/var/lib/postgresql"
+
+
+volumes:
+  postgis:
