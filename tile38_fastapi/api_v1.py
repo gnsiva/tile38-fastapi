@@ -14,8 +14,7 @@ import redis
 from tile38_fastapi import PARKING_LOCATIONS
 
 
-app = FastAPI()
-
+app = FastAPI()\
 
 @app.get("/nearby-parking-locations")
 async def get_nearby(
@@ -33,4 +32,4 @@ async def get_nearby(
 
 
 if __name__ == "__main__":
-    uvicorn.run("tile38_fastapi.api_v1:app")
+    uvicorn.run("api_v1:app")
