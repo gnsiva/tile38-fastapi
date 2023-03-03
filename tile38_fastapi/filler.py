@@ -26,7 +26,7 @@ from shapely.geometry import mapping
 from sqlalchemy.orm import sessionmaker
 
 from tile38_fastapi import PARKING_LOCATIONS
-from tile38_fastapi.db import create_postgis_engine, ParkingLocations
+from tile38_fastapi.db import create_postgis_engine, ParkingLocationsPostGis
 
 
 @dataclass
@@ -35,11 +35,11 @@ class Row:
     geometry: str
     price: int
 
-    def to_postgis(self) -> ParkingLocations:
-        return ParkingLocations(
+    def to_postgis(self) -> ParkingLocationsPostGis:
+        return ParkingLocationsPostGis(
             parking_location_id=self.parking_location_id,
             price=self.price,
-            geometry=WKTElement(self.geometry),
+            geometry=WKTElement(self.geometry, srid=4326),
         )
 
 
@@ -75,8 +75,7 @@ def write_rows_to_tile38(rows: list[Row]) -> None:
 @timer(name="postgis")
 def write_rows_to_postgis(rows: list[Row]) -> None:
     engine = create_postgis_engine()
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = sessionmaker(bind=engine)()
 
     # it may be faster to use sqlalchemy core here instead of orm
     # as the focus is the performance of data retrieval I'm leaving this as is
@@ -92,7 +91,7 @@ def write_rows_to_postgis(rows: list[Row]) -> None:
 def main(input_file: Path) -> None:
 
     # create postgis table
-    ParkingLocations.create_table()
+    ParkingLocationsPostGis.create_table()
 
     # load the test data from a file
     with open(input_file, "r") as f:
@@ -104,7 +103,6 @@ def main(input_file: Path) -> None:
         rows = [Row(*row) for row in csv.reader(f)]
 
         write_rows_to_tile38(rows)
-
         write_rows_to_postgis(rows)
 
 
