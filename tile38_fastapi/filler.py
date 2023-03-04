@@ -74,7 +74,7 @@ def write_rows_to_tile38(rows: list[Row]) -> None:
 
 @timer(name="postgis")
 def write_rows_to_postgis(rows: list[Row]) -> None:
-    engine = create_postgis_engine()
+    engine = create_postgis_engine(pool=False)
     session = sessionmaker(bind=engine)()
 
     # it may be faster to use sqlalchemy core here instead of orm

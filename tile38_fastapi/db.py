@@ -36,7 +36,7 @@ class ParkingLocationsPostGis(Base):
     @classmethod
     def create_table(cls) -> None:
         """Create table if exists"""
-        engine = create_postgis_engine()
+        engine = create_postgis_engine(pool=False)
         try:
             cls.__table__.create(bind=engine)
         except (DuplicateTable, ProgrammingError):
