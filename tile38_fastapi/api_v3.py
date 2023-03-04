@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 import geoalchemy2.functions as func
-import redis.asyncio as async_redis
+import redis
 import uvicorn
 from fastapi import FastAPI, Query
 from sqlalchemy import Select
@@ -41,17 +41,10 @@ class Retriever(ABCMeta):
 
 
 class Tile38Retriever:
-    connection_pool = async_redis.Redis(
-        encoding="utf-8",
-        connection_pool=async_redis.connection.BlockingConnectionPool(
-            max_connections=64,
-            host="localhost",
-            port=9851,
-        )
-    )
-
+    """This class can easily be improved by using a connection pool to Tile38 and async queries"""
     async def retrieve(self, query: NearbyQuery):
-        return await self.connection_pool.execute_command(*[
+        conn = redis.Redis(host="localhost", port=9851, single_connection_client=True)
+        return conn.execute_command(*[
             "INTERSECTS",
             PARKING_LOCATIONS,
             "LIMIT",
@@ -64,7 +57,7 @@ class Tile38Retriever:
 
 
 class PostGisRetriever:
-    engine = create_postgis_engine()
+    engine = create_postgis_engine(pool=False)
 
     def retrieve(self, query: NearbyQuery):
         query_geom2 = func.ST_Buffer(

@@ -6,8 +6,21 @@ from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.declarative import declarative_base
 
 
-def create_postgis_engine() -> Engine:
-    return create_engine("postgresql+psycopg2://the_user:the_password@localhost:5432/parking")
+def create_postgis_engine(pool: bool) -> Engine:
+    if pool:
+        pool_kwargs = {
+            "pool_size": 25,
+            "max_overflow": 100,
+        }
+    else:
+        pool_kwargs = {
+            "poolclass": NullPool
+        }
+
+    return create_engine(
+        "postgresql+psycopg2://the_user:the_password@localhost:5432/parking",
+        **pool_kwargs,
+    )
 
 
 Base = declarative_base()
