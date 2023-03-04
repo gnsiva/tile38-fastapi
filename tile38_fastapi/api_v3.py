@@ -4,7 +4,7 @@
 """
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 
 import geoalchemy2.functions as func
 import redis.asyncio as async_redis
@@ -21,7 +21,7 @@ app = FastAPI(
 )
 
 
-class Database(StrEnum):
+class Database(str, Enum):
     POSTGIS = "postgis"
     TILE38 = "tile38"
 
