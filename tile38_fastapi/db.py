@@ -1,7 +1,7 @@
 """File containing additional code for working with MySQL and PostGIS"""
-from geoalchemy2 import Geometry as GeoalchemyGeometry
+from geoalchemy2 import Geography as GeoalchemyGeography
 from psycopg2.errors import DuplicateTable
-from sqlalchemy import Engine, create_engine, Column, Integer
+from sqlalchemy import Engine, create_engine, Column, Integer, NullPool
 from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -18,7 +18,7 @@ class ParkingLocationsPostGis(Base):
 
     parking_location_id = Column(Integer, primary_key=True, nullable=False)
     price = Column(Integer, nullable=False)
-    geometry = Column(GeoalchemyGeometry("LineString", srid=4326), nullable=False)
+    geometry = Column(GeoalchemyGeography("LineString", srid=4326), nullable=False)
 
     @classmethod
     def create_table(cls) -> None:
