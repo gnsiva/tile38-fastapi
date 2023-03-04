@@ -4,6 +4,7 @@ uvicorn[standard]==0.20.*
 
 # for test data generation
 shapely==2.0.*
+geopy==2.3.*
 
 # for database benchmarking
 geoalchemy2==0.13.1
