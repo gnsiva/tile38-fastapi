@@ -110,5 +110,5 @@ if __name__ == "__main__":
         max_lat=48.245,
         min_lng=11.35,
         max_lng=11.78,
-        n_to_generate=1_000,
+        n_to_generate=30_000,
     )
