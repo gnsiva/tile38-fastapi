@@ -12,13 +12,26 @@ cd /this/location/tile38-fastapi
 pip install -r requirements.txt
 ```
 
+## Generate sample data
+A script is included to generate sample data, which are pretend parking locations in Munich.
+They are drawn with the approximate length of parking locations, 
+but are randomly placed and don't follow the road network. 
+
+```bash
+python ./tile38_fastapi/generate_data.py
+```
+
+It will generate two files, by default:
+* `./data/random-locations.csv`
+* `./data/random-locations.geojson`
+
 ## Fill the databases
 ```bash
 # in one terminal, run the following that will launch Tile38 and PostGIS
 docker-compose up
 
 # in another run this which will fill the databases with data
-python tile38_fastapi/filler.py
+python ./tile38_fastapi/filler.py
 ```
 
 ## Run the API
