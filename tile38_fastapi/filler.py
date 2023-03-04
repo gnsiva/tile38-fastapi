@@ -107,4 +107,4 @@ def main(input_file: Path) -> None:
 
 
 if __name__ == "__main__":
-    main(input_file=Path(__file__).parent.parent / "data/test-data.csv")
+    main(input_file=Path(__file__).parent.parent / "data/random-locations.csv")
