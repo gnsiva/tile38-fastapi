@@ -2,6 +2,7 @@
 
 - Includes ability to query PostGIS or Tile38.
 """
+import logging
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
@@ -127,5 +128,9 @@ async def get_nearby(
 async def shutdown() -> None:
     PostGisRetriever.engine.dispose()
 
+
 if __name__ == "__main__":
-    uvicorn.run("api_v3:app")
+    uvicorn.run(
+        "api_v3:app",
+        log_level=logging.WARNING,
+    )
