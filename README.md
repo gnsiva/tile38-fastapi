@@ -77,3 +77,28 @@ To connect to the database, when prompted the password is "the_password"
 ```bash
 psql parking -U the_user -W -p 5432 -h localhost
 ```
+
+## Benchmarking
+The benchmarking commands use [Apache Bench](https://httpd.apache.org/docs/2.4/programs/ab.html). 
+To install on Ubuntu and derivatives:
+```bash
+sudo apt install apache2-utils
+```
+
+Commands to run benchmarks. 
+```bash
+# Tile38 - 100 serial requests
+ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=tile38'
+
+# PostGIS - 100 serial requests
+ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=postgis'
+
+# Tile38 - 100 concurrent requests
+ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=tile38'
+
+# PostGIS - 100 concurrent requests
+ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=postgis'
+```
+
+Make sure you have started the databases and run the filler script beforehand run the filler script beforehand. 
+To check the query, try replacing `ab -c X -n 100`  with  `curl` and make sure locations are being found.
