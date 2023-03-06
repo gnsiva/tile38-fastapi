@@ -59,7 +59,7 @@ def write_rows_to_tile38(rows: list[Row]) -> None:
     c = redis.Redis(host="localhost", port=9851, single_connection_client=True)
     for row in rows:
         d = mapping(wkt.loads(row.geometry))
-        d["price"] = row.price
+        d["properties"] = {"price": row.price}
 
         command = [
             "SET",                    # The Tile38 operation to perform

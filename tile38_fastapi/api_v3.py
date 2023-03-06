@@ -43,12 +43,18 @@ class Retriever(ABCMeta):
 class Tile38Retriever:
     """This class can easily be improved by using a connection pool to Tile38 and async queries"""
     async def retrieve(self, query: NearbyQuery):
+        if query.free_only:
+            filters = ["WHERE", "properties.price == 0"]
+        else:
+            filters = []
+
         conn = redis.Redis(host="localhost", port=9851, single_connection_client=True)
         return conn.execute_command(*[
             "INTERSECTS",
             PARKING_LOCATIONS,
             "LIMIT",
             10_000,
+            *filters,
             "CIRCLE",
             query.latitude,
             query.longitude,

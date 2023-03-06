@@ -95,8 +95,10 @@ def main(
     for id_, line, price in zip(ids, lines, prices):
         d = {
             "geometry": mapping(line),
-            "price": price,
-            "parking_location_id": id_,
+            "properties": {
+                "price": price,
+                "parking_location_id": id_,
+            }
         }
         output_d["features"].append(d)
 
