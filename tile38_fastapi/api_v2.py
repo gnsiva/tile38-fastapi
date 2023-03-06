@@ -10,8 +10,8 @@ app = FastAPI()
 
 @app.get("/nearby-parking-locations")
 async def get_nearby(
-        latitude: float = Query(ge=-90, le=90),
-        longitude: float = Query(ge=-180, le=180),
+        latitude: float = Query(ge=-90, le=90, example=48.245),
+        longitude: float = Query(ge=-180, le=180, example=11.5729),
         free_only: bool = Query(
             description="If True only return no payment necessary locations",
             default=False,
@@ -19,6 +19,7 @@ async def get_nearby(
         distance_meters: int = Query(
             ge=1,
             description="Distance from point to search for parking locations",
+            default=150,
         ),
 ):
     if free_only:
