@@ -29,7 +29,7 @@ async def get_nearby(
     c = redis.Redis(host="localhost", port=9851, single_connection_client=True)
 
     return c.execute_command(
-        "NEARBY", PARKING_LOCATIONS, *filters, "POINT", longitude, latitude, distance_meters)[1]
+        "NEARBY", PARKING_LOCATIONS, *filters, "POINT", latitude, longitude, distance_meters)[1]
 
 
 if __name__ == "__main__":
