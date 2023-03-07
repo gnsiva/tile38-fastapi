@@ -19,7 +19,7 @@ async def get_nearby(
         distance_meters: int = Query(
             ge=1,
             description="Distance from point to search for parking locations",
-            default=150,
+            default=500,
         ),
 ):
     if free_only:
