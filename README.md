@@ -43,7 +43,7 @@ cd /this/location/tile38-fastapi
 # Most basic example
 python tile38_fastapi/api_v1.py
 
-# Same as above, but adds filtering of free locations
+# Same as above, but adds filtering of free locations and additional validation
 python tile38_fastapi/api_v2.py
 
 # A more fully featured version that is used for benchmarking the datasets
@@ -88,10 +88,10 @@ sudo apt install apache2-utils
 Commands to run benchmarks. 
 ```bash
 # Tile38 - 100 serial requests
-ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=tile38'
+ab -c 1 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=tile38'
 
 # PostGIS - 100 serial requests
-ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=postgis'
+ab -c 1 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=postgis'
 
 # Tile38 - 100 concurrent requests
 ab -c 100 -n 100 'http://localhost:8000/nearby-parking-locations?latitude=48.245&longitude=11.5729&distance_meters=250&free_only=false&database=tile38'
