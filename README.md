@@ -1,7 +1,7 @@
 # Tile38 and FastAPI Presentation
 
 ## Presentation
-The presentation slides are in `/this/location/tile38-fastapi/presentation/`.
+The presentation slides are in `/this/location/tile38-fastapi/presentation/presentation.pdf`.
 
 ## Preparing environment
 
