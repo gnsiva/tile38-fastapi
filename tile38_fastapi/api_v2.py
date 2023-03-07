@@ -13,7 +13,7 @@ async def get_nearby(
         latitude: float = Query(ge=-90, le=90, example=48.245),
         longitude: float = Query(ge=-180, le=180, example=11.5729),
         free_only: bool = Query(
-            description="If True only return no payment necessary locations",
+            description="If True only return locations that do not require payment",
             default=False,
         ),
         distance_meters: int = Query(
